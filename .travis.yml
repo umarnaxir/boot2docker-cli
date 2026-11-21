@@ -1,0 +1,22 @@
+language: go
+
+go:
+    - 1.4.1
+
+# let us have pretty experimental Docker-based Travis workers
+sudo: false
+
+env:
+    - GIMME_OS=linux GIMME_ARCH=amd64
+    - GIMME_OS=darwin GIMME_ARCH=amd64
+    - GIMME_OS=windows GIMME_ARCH=amd64
+
+install:
+    - env | sort
+    - go get -d -v ./...
+
+script:
+    # TODO - some gofmt magic
+    - go build -v ./...
+    # TODO - go test -v ./... # (we first need to skip all the meaty vbox tests when "VBoxManage" isn't available, or mock it)
+
